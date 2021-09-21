@@ -1,0 +1,107 @@
+swagger: '2.0'
+info:
+  description: 'T-Shape Project'
+  version: 1.0.0
+  title: Swagger products
+host: iklop68fxb.execute-api.eu-west-1.amazonaws.com
+basePath: /
+tags:
+  - name: products
+    description: Everything about products(phones)
+    externalDocs:
+      description: Find out more
+      url: 'http://swagger.io'
+schemes:
+  - https
+paths:
+  /dev/products:
+    get:
+      tags:
+        - products
+      summary: Returns all product
+      description: Returns all product
+      operationId: getAllProduct
+      produces:
+        - application/json
+      responses:
+        '200':
+          description: Successful operation
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Product'
+        '500':
+          description: Server error
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+                description: Erorr message
+  '/dev/products/{productId}':
+    get:
+      tags:
+        - products
+      summary: Find product by ID
+      description: Returns a single product
+      operationId: getProductById
+      produces:
+        - application/json
+      parameters:
+        - name: productId
+          in: path
+          description: ID of product to return
+          required: true
+          type: string
+      responses:
+        '200':
+          description: Successful operation
+          schema:
+            $ref: '#/definitions/Product'
+        '404':
+          description: No product with such ID
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+                description: Erorr message
+        '500':
+          description: Server error
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+                description: Erorr message
+definitions:
+  Product:
+    type: object
+    properties:
+      id:
+        type: string
+        format: guid
+      title:
+        type: string
+        description: product title
+      description:
+        type: string
+        description: short product description
+      price:
+        type: integer
+        format: int64
+      count:
+        type: integer
+        format: int64
+      imgUrl:
+        type: string
+        description: image url
+      ram:
+        type: integer
+        format: int64
+      storage:
+        type: string
+        description: description of phone storage
+      display:
+        type: string
+        description: description of phone display
